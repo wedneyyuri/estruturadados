@@ -11,7 +11,7 @@ func TestContains(t *testing.T) {
 		}
 	}
 
-	if !Contains(values, "z") {
+	if Contains(values, "z") {
 		t.Fatalf("Contains returned true for %v", "z")
 	}
 }
