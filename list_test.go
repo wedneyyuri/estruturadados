@@ -1,6 +1,8 @@
 package estruturadados
 
-import "testing"
+import (
+	"testing"
+)
 
 func TestContains(t *testing.T) {
 	values := []string{"a", "b", "c", "d", "e"}
@@ -13,5 +15,18 @@ func TestContains(t *testing.T) {
 
 	if Contains(values, "z") {
 		t.Fatalf("Contains returned true for %v", "z")
+	}
+}
+
+func BenchmarkContains1000000(b *testing.B) {
+	values := genTerms(1000000)
+	b.ResetTimer()
+
+	for i := 0; i < b.N; i++ {
+		for _, v := range values {
+			if !Contains(values, v) {
+				panic("invalid result")
+			}
+		}
 	}
 }
