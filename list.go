@@ -4,7 +4,12 @@ import "strconv"
 
 // Contains reports whether value is within values.
 func Contains(values []string, value string) bool {
-	return true
+	for _, v := range values {
+		if v == value {
+			return true
+		}
+	}
+	return false
 }
 
 func genTerms(size int) []string {

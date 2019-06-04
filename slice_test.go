@@ -29,3 +29,18 @@ func TestIntersection(t *testing.T) {
 		})
 	}
 }
+
+func BenchmarkIntersection(b *testing.B) {
+	list := genTerms(30000)
+	listA := list[:20000]
+	listB := list[10000:]
+
+	b.ResetTimer()
+
+	for i := 0; i < b.N; i++ {
+		got := Intersection(listA, listB)
+		if len(got) == 0 {
+			panic("invalid result")
+		}
+	}
+}
