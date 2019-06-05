@@ -61,3 +61,38 @@ func BenchmarkContentOnBlackList(b *testing.B) {
 		}
 	}
 }
+
+func TestBlacklist(t *testing.T) {
+	blacklist := NewBlacklist()
+	blacklistterms := []string{"lula livre", "michel temer", "bolsonaro"}
+
+	for _, term := range blacklistterms {
+		blacklist.AddTerm(term)
+	}
+
+	if blacklist.IsBlacklisted("lula") {
+		t.Fatal("lula não deveria estar na blacklist")
+	}
+
+	if !blacklist.IsBlacklisted("bolsonaro") {
+		t.Fatal("bolsonaro deveria estar na blacklist")
+	}
+
+}
+
+func BenchmarkBlacklist(b *testing.B) {
+	blacklist := NewBlacklist()
+	blacklistterms := []string{"lula livre", "michel temer", "bolsonaro"}
+
+	for _, term := range blacklistterms {
+		blacklist.AddTerm(term)
+	}
+
+	b.ResetTimer()
+
+	for i := 0; i < b.N; i++ {
+		if blacklist.IsBlacklisted("lula") {
+			panic("omg")
+		}
+	}
+}
